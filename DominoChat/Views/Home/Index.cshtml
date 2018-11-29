@@ -1,191 +1,102 @@
-﻿
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Login V1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Content/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/main.css">
+    <!--===============================================================================================-->
 </head>
 <body>
 
-
-
-    <div class="col-sm-12" style="height:95%;padding-top:30px">
-        <div class="row">
-
-            <div class="col-sm-2" id="listusers">
-                <div class="form-group" style="height:95%">
-                    <select multiple class="form-control" id="userList" style="overflow:auto;height:95%"></select>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="~/Content/images/img-01.png" alt="IMG">
                 </div>
 
-            </div>
-            <div class="col-sm-10">
-                <div class="form-group" style="height:95%">
-                    <ul class="form-control" id="messages" style="height:95%;overflow:auto;"></ul>
-                    <div class="input-group">
-                        <input type="text" id="inputMsg" class="form-control" placeholder="Enviar Mensaje" aria-label="Recipient's username" aria-describedby="basic-addon2" maxlength="80">
-                        <div class="input-group-append">
-                            <button id="sendMsg" class="btn btn-outline-secondary" type="submit">Enviar</button>
-                        </div>
+                <form class="login100-form validate-form">
+                    <span class="login100-form-title">
+                        Member Login
+                    </span>
+
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" name="email" placeholder="Email">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
                     </div>
-                    <p style="margin-top:0;color:white;font:bold,italic;font-size:small" id="Escribiendo"></p>
-                </div>
 
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input class="input100" type="password" name="pass" placeholder="Password">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+
+                    <div class="text-center p-t-12">
+                        <span class="txt1">
+                            Forgot
+                        </span>
+                        <a class="txt2" href="#">
+                            Username / Password?
+                        </a>
+                    </div>
+
+                    <div class="text-center p-t-136">
+                        <a class="txt2" href="#">
+                            Create your Account
+                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </form>
             </div>
-
         </div>
     </div>
 
 
-    <script src="../Scripts/jquery-1.6.4.min.js"></script>
-    <script src="../Scripts/jquery.signalR-2.4.0.js"></script>
-    <script src="../Scripts/jquery.signalR-2.4.0.js"></script>
-    <script src="../signalr/hubs"></script>
+
+
+    <!--===============================================================================================-->
+    <script src="~/Content/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Content/vendor/tilt/tilt.jquery.min.js"></script>
     <script>
-        // request permission on page load
-        document.addEventListener('DOMContentLoaded', function () {
-            if (!Notification) {
-                alert('Desktop notifications not available in your browser. Try Chromium.');
-                return;
-            }
-
-            if (Notification.permission !== "granted")
-                Notification.requestPermission();
-        });
-
-        $(function () {
-
-           
-
-            function notifyMe(name, message) {
-                if (Notification.permission !== "granted")
-                    Notification.requestPermission();
-                else {
-                    var notification = new Notification('Dominó Chat', {
-                        icon:"~/Content/Next_Domino.png",
-                        body:  name + ": " + message,
-                        
-                        
-                    });
-
-                    notification.onclick = function () {
-                        window.focus();
-                    };
-
-                }
-
-            }
-
-
-            var chat = $.connection.signalHub;
-
-            var username;
-            username = sessionStorage.getItem("userNamex");
-            if (!username){
-                do {
-                    username = prompt("Ingrese Nombre de usuario")
-                } while (!username || username == "");
-                sessionStorage.setItem("userNamex", username);
-
-            }
-            
-
-            
-            var connectionid = "";
-
-          
-                $.connection.hub.start().done(function () {
-                    chat.server.connect(username);
-                    connectionid = $.connection.hub.id;
-                });
-          
-           
-                          
-
-            var input = $('#inputMsg');
-            var escribiendo = false;
-            input.bind("keyup", function (event) {
-                // Cancel the default action, if needed
-
-                event.preventDefault();
-                //if (!escribiendo) {
-                    chat.server.escribiendo(username);
-                  //  escribiendo = true;
-                //}
-
-                // Number 13 is the "Enter" key on the keyboard
-                if (event.keyCode === 13) {
-                    // Trigger the button element with a click
-                    if ($('#inputMsg').val() != "") {
-                        $("#sendMsg").click();
-                    }
-
-                }
-            });
-            chat.client.chargeOldMessages = function (messages) {
-                messages.forEach(function (item) {
-                    $("#messages").append("<li><strong>" + item.name + ": </strong>" + item.message + "</li>");
-                    var elem = document.getElementById('messages');
-                    elem.scrollTop = elem.scrollHeight;
-                });
-            }
-
-            chat.client.estaEscribiendo = function (texto) {
-                $("#Escribiendo").text(texto);
-                setTimeout(function () {
-                    $('#Escribiendo').text('');
-                    escribiendo = false;
-                }, 5000);
-            }
-            chat.client.updateClientes = function (userCount, userList) {
-                $("#userList").empty();
-                userList.forEach(function (userName) {
-
-                    $("#userList").append("<option><strong>" + userName + "<strong>" + "</option>");
-
-                });
-            }
-            $('#sendMsg').click(function () {
-                chat.server.send(username, $('#inputMsg').val());
-                $('#inputMsg').val("");
-            });
-
-            chat.client.broadCastMessage = function (user, connectionidx, message) {
-                
-                $("#messages").append("<li><strong>" + user + ": </strong>" + message + "</li>");
-                var elem = document.getElementById('messages');
-                elem.scrollTop = elem.scrollHeight;
-
-                if (document.hidden) {
-                    notifyMe(user, message);
-                }
-
-
-            }
-           
-           
-        });
-
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
     </script>
-    <style>
-        body {
-            background: linear-gradient(to right, #734b6d, #42275a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            height: 100vh;
-        }
+    <!--===============================================================================================-->
+    <script src="~/Content/js/main.js"></script>
 
-        .row {
-            height: 100%;
-        }
-
-        ul {
-            list-style-type: none;
-        }
-    </style>
 </body>
-
 </html>
