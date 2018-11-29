@@ -146,9 +146,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Next_Domino.png" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <None Include="Properties\PublishProfiles\domino.pubxml" />
     <None Include="Properties\PublishProfiles\dominochat.pubxml" />
     <None Include="scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="scripts\jquery-1.6.4.js" />

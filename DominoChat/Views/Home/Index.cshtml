@@ -47,11 +47,39 @@
     <script src="../Scripts/jquery.signalR-2.4.0.js"></script>
     <script src="../signalr/hubs"></script>
     <script>
+        // request permission on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!Notification) {
+                alert('Desktop notifications not available in your browser. Try Chromium.');
+                return;
+            }
 
+            if (Notification.permission !== "granted")
+                Notification.requestPermission();
+        });
 
         $(function () {
 
+           
 
+            function notifyMe(name, message) {
+                if (Notification.permission !== "granted")
+                    Notification.requestPermission();
+                else {
+                    var notification = new Notification('Dominó Chat', {
+                        icon:"~/Content/Next_Domino.png",
+                        body:  name + ": " + message,
+                        
+                        
+                    });
+
+                    notification.onclick = function () {
+                        window.focus();
+                    };
+
+                }
+
+            }
 
 
             var chat = $.connection.signalHub;
@@ -131,7 +159,11 @@
                 
                 $("#messages").append("<li><strong>" + user + ": </strong>" + message + "</li>");
                 var elem = document.getElementById('messages');
-                    elem.scrollTop = elem.scrollHeight;
+                elem.scrollTop = elem.scrollHeight;
+
+                if (document.hidden) {
+                    notifyMe(user, message);
+                }
 
 
             }
