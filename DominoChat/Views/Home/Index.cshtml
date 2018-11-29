@@ -28,7 +28,7 @@
                 <div class="form-group" style="height:95%">
                     <ul class="form-control" id="messages" style="height:95%;overflow:auto;"></ul>
                     <div class="input-group">
-                        <input type="text" id="inputMsg" class="form-control" placeholder="Enviar Mensaje" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <input type="text" id="inputMsg" class="form-control" placeholder="Enviar Mensaje" aria-label="Recipient's username" aria-describedby="basic-addon2" maxlength="80">
                         <div class="input-group-append">
                             <button id="sendMsg" class="btn btn-outline-secondary" type="submit">Enviar</button>
                         </div>
@@ -99,7 +99,12 @@
 
                 }
             });
+            chat.client.chargeOldMessages = function (messages) {
+                messages.forEach(function (item) {
+                    $("#messages").append("<li><strong>" + item.name + ": </strong>" + item.message + "</li>");
 
+                });
+            }
 
             chat.client.estaEscribiendo = function (texto) {
                 $("#Escribiendo").text(texto);
@@ -122,11 +127,9 @@
             });
 
             chat.client.broadCastMessage = function (user, connectionidx, message) {
-                if (connectionid == connectionidx) {
+                
                     $("#messages").append("<li><strong>" + user + ": </strong>" + message + "</li>");
-                } else {
-                    $("#messages").append("<li>" + user + ": " + message + "</li>");
-                }
+               
 
 
             }

@@ -10,7 +10,7 @@ namespace SignalRChatServer.Hubs
     public class SignalHub:Hub
     {
         public static List<Client> Clientes = new List<Client>();
-
+        public static List<Message> Messages = new List<Message>();
         
         public void Connect (string userName)
         {
@@ -22,6 +22,7 @@ namespace SignalRChatServer.Hubs
 
             Clientes.Add(c);
             UpdateClientes();
+            Clients.Caller.chargeOldMessages(Messages);
             //Clients.All.broadCastMessage("[" + c.name + "]", Context.ConnectionId, "Ha ingresado a la sala");
 
 
@@ -40,6 +41,11 @@ namespace SignalRChatServer.Hubs
         public void Send (string userName, string message)
         {
 
+            Messages.Add(new Message
+            {
+                name = userName,
+                message = message
+            });
             Clients.All.broadCastMessage(userName, Context.ConnectionId, message);
 
         }
@@ -73,5 +79,10 @@ namespace SignalRChatServer.Hubs
     {
         public string name { get; set; }
         public string id { get; set; }
+    }
+    public class Message
+    {
+        public string name { get; set; }
+        public string message { get; set; }
     }
 }
