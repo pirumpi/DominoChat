@@ -227,6 +227,34 @@
     <Content Include="Content\images\img-05.png" />
     <Content Include="Content\js\main.js" />
     <Content Include="Content\Next_Domino.png" />
+    <Content Include="Content\tiles\1.png" />
+    <Content Include="Content\tiles\10.png" />
+    <Content Include="Content\tiles\11.png" />
+    <Content Include="Content\tiles\12.png" />
+    <Content Include="Content\tiles\13.png" />
+    <Content Include="Content\tiles\14.png" />
+    <Content Include="Content\tiles\15.png" />
+    <Content Include="Content\tiles\16.png" />
+    <Content Include="Content\tiles\17.png" />
+    <Content Include="Content\tiles\18.png" />
+    <Content Include="Content\tiles\19.png" />
+    <Content Include="Content\tiles\2.png" />
+    <Content Include="Content\tiles\20.png" />
+    <Content Include="Content\tiles\21.png" />
+    <Content Include="Content\tiles\22.png" />
+    <Content Include="Content\tiles\23.png" />
+    <Content Include="Content\tiles\24.png" />
+    <Content Include="Content\tiles\25.png" />
+    <Content Include="Content\tiles\26.png" />
+    <Content Include="Content\tiles\27.png" />
+    <Content Include="Content\tiles\28.png" />
+    <Content Include="Content\tiles\3.png" />
+    <Content Include="Content\tiles\4.png" />
+    <Content Include="Content\tiles\5.png" />
+    <Content Include="Content\tiles\6.png" />
+    <Content Include="Content\tiles\7.png" />
+    <Content Include="Content\tiles\8.png" />
+    <Content Include="Content\tiles\9.png" />
     <Content Include="Content\vendor\animate\animate.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap-grid.css.map" />
@@ -259,11 +287,69 @@
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\domino.pubxml" />
     <None Include="Properties\PublishProfiles\dominochat.pubxml" />
+    <None Include="Properties\PublishProfiles\dominoFile.pubxml" />
     <None Include="scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="scripts\classes.js" />
     <Content Include="scripts\jquery-1.6.4.js" />
     <Content Include="scripts\jquery-1.6.4.min.js" />
     <Content Include="scripts\jquery.signalR-2.4.0.js" />
     <Content Include="scripts\jquery.signalR-2.4.0.min.js" />
+    <Content Include="scripts\konva\konva.d.ts" />
+    <Content Include="scripts\konva\konva.js" />
+    <Content Include="scripts\konva\konva.min.js" />
+    <Content Include="scripts\konva\src\Animation.js" />
+    <Content Include="scripts\konva\src\BaseLayer.js" />
+    <Content Include="scripts\konva\src\Canvas.js" />
+    <Content Include="scripts\konva\src\Container.js" />
+    <Content Include="scripts\konva\src\Context.js" />
+    <Content Include="scripts\konva\src\Core.js" />
+    <Content Include="scripts\konva\src\DragAndDrop.js" />
+    <Content Include="scripts\konva\src\Factory.js" />
+    <Content Include="scripts\konva\src\FastLayer.js" />
+    <Content Include="scripts\konva\src\filters\Blur.js" />
+    <Content Include="scripts\konva\src\filters\Brighten.js" />
+    <Content Include="scripts\konva\src\filters\Contrast.js" />
+    <Content Include="scripts\konva\src\filters\Emboss.js" />
+    <Content Include="scripts\konva\src\filters\Enhance.js" />
+    <Content Include="scripts\konva\src\filters\Grayscale.js" />
+    <Content Include="scripts\konva\src\filters\HSL.js" />
+    <Content Include="scripts\konva\src\filters\HSV.js" />
+    <Content Include="scripts\konva\src\filters\Invert.js" />
+    <Content Include="scripts\konva\src\filters\Kaleidoscope.js" />
+    <Content Include="scripts\konva\src\filters\Mask.js" />
+    <Content Include="scripts\konva\src\filters\Noise.js" />
+    <Content Include="scripts\konva\src\filters\Pixelate.js" />
+    <Content Include="scripts\konva\src\filters\Posterize.js" />
+    <Content Include="scripts\konva\src\filters\RGB.js" />
+    <Content Include="scripts\konva\src\filters\RGBA.js" />
+    <Content Include="scripts\konva\src\filters\Sepia.js" />
+    <Content Include="scripts\konva\src\filters\Solarize.js" />
+    <Content Include="scripts\konva\src\filters\Threshold.js" />
+    <Content Include="scripts\konva\src\Global.js" />
+    <Content Include="scripts\konva\src\Group.js" />
+    <Content Include="scripts\konva\src\Layer.js" />
+    <Content Include="scripts\konva\src\Node.js" />
+    <Content Include="scripts\konva\src\Shape.js" />
+    <Content Include="scripts\konva\src\shapes\Arc.js" />
+    <Content Include="scripts\konva\src\shapes\Arrow.js" />
+    <Content Include="scripts\konva\src\shapes\Circle.js" />
+    <Content Include="scripts\konva\src\shapes\Ellipse.js" />
+    <Content Include="scripts\konva\src\shapes\Image.js" />
+    <Content Include="scripts\konva\src\shapes\Label.js" />
+    <Content Include="scripts\konva\src\shapes\Line.js" />
+    <Content Include="scripts\konva\src\shapes\Path.js" />
+    <Content Include="scripts\konva\src\shapes\Rect.js" />
+    <Content Include="scripts\konva\src\shapes\RegularPolygon.js" />
+    <Content Include="scripts\konva\src\shapes\Ring.js" />
+    <Content Include="scripts\konva\src\shapes\Sprite.js" />
+    <Content Include="scripts\konva\src\shapes\Star.js" />
+    <Content Include="scripts\konva\src\shapes\Text.js" />
+    <Content Include="scripts\konva\src\shapes\TextPath.js" />
+    <Content Include="scripts\konva\src\shapes\Transformer.js" />
+    <Content Include="scripts\konva\src\shapes\Wedge.js" />
+    <Content Include="scripts\konva\src\Stage.js" />
+    <Content Include="scripts\konva\src\Tween.js" />
+    <Content Include="scripts\konva\src\Util.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -273,6 +359,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MesaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -287,6 +374,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Mesa\Index.cshtml" />
+    <Content Include="scripts\konva\CHANGELOG.md" />
+    <Content Include="scripts\konva\LICENCE" />
+    <Content Include="scripts\konva\package.json" />
+    <Content Include="scripts\konva\README.md" />
+    <Content Include="scripts\konva\src\.DS_Store" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
