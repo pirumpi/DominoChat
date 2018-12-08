@@ -7,7 +7,9 @@
     const TilesRightMarging=3;
     const iniciaFichaEnManoEn=460;
     const iniciaFichaEnManoY=130;
-    const tilesArray= [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28];
+    const tilesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28];
+   
+
     var boardValueLeft=null;
     var boardValueRight=null;
     var tween=null;
@@ -22,7 +24,8 @@ class TileContainer{
         this.x= valuex  ? valuex:(stage.getWidth() -tilesWidth)/2,
         this.y= valuey  ?valuey:(stage.getHeight() -tilesHeigth)/2,
         this.stroke= 'green',
-        this.strokeWidth= 1,
+        this.strokeWidth = 1,
+        this.orientation = 0,
         this.draggable=false,
         this.valueLeft=0,
         this.valueRigt=0,
@@ -53,9 +56,13 @@ class Tile {
         this.height= tilesHeigth,
         this.fill="white",
         this.strokeWidth= 0,
-        this.draggable= draggable,
-        this.valueLeft=0,
-        this.valueRigt=0
+        this.draggable = draggable,
+        this.orientation = 0,
+        this.values =
+            {
+                head: null,
+                tail:null
+            }
         this.shadowColor='Black',
         this.shadowBlur= 10,
         this.initialPosition={
@@ -111,10 +118,11 @@ class Board {
 
 ///Classes
 
-function addTile(layer,stage, orientation,x,y,draggable,image) {
-    var box = new Konva.Rect(new Tile(x,y,stage,draggable));
-    if (orientation==1) 
-    box.rotate(90);
+function addTile(layer,stage, orientation,x,y,draggable,image,valor) {
+    var box = new Konva.Rect(new Tile(x, y, stage, draggable));
+    box.values = valor;
+    if (orientation || orientation>0) 
+        rotateAroundCenter(box,orientation);
 
     box.fillPriority('pattern');
     var imageObj = new Image();
@@ -137,9 +145,11 @@ function addTile(layer,stage, orientation,x,y,draggable,image) {
 }
 function addTileContainer(layer,stage, orientation,x,y) {
     var box = new Konva.Rect(new TileContainer(x,y,stage));
-    if (orientation==1) 
-    box.rotate(90);
+    if (orientation)
+    rotateAroundCenter(box,orientation);
+    //box.rotate(orientation);
     layer.add(box);
+    return box;
 }
 
 function AddTileGroupBot(layer,stage,tileList){
@@ -155,8 +165,10 @@ function AddTileGroupBot(layer,stage,tileList){
     if(index>0)
     iniciaEn=iniciaEn + tilesWidth + TilesRightMarging;
     else
-    iniciaEn=primera;
-    addTile(layer,stage,0,iniciaEn,null,true,'/Content/tiles/'+tilesArray[index]+'.png');
+        iniciaEn = primera;
+        
+    var valores = tilesValues.find(valores=>valores.id == tilesArray[index]);
+    addTile(layer,stage,0,iniciaEn,null,true,'/Content/tiles/'+tilesArray[index]+'.png',valores);
       
   }
 
@@ -200,7 +212,7 @@ function AddTileGroupLeft(layer,stage){
     else
     iniciaEn=primera;
 
-    addTile(layer,stage,1,150,iniciaEn);
+    addTile(layer,stage,90,30,iniciaEn);
       
   }
 
@@ -222,7 +234,7 @@ function AddTileGroupRight(layer,stage){
     else
     iniciaEn=primera;
 
-    addTile(layer,stage,1, (stage.getWidth()-50),iniciaEn);
+    addTile(layer,stage,-90, (stage.getWidth()-85),iniciaEn);
       
   }
 
@@ -237,3 +249,24 @@ function shuffleTiles(array) {
     }
 }
 
+
+
+const rotatePoint = ({ x, y }, rad) => {
+    const rcos = Math.cos(rad);
+    const rsin = Math.sin(rad);
+    return { x: x * rcos - y * rsin, y: y * rcos + x * rsin };
+};
+
+// will work for shapes with top-left origin, like rectangle
+function rotateAroundCenter(node, rotation) {
+    //current rotation origin (0, 0) relative to desired origin - center (node.width()/2, node.height()/2)
+    const topLeft = { x: -node.width() / 2, y: -node.height() / 2 };
+    const current = rotatePoint(topLeft, Konva.getAngle(node.rotation()));
+    const rotated = rotatePoint(topLeft, Konva.getAngle(rotation));
+    const dx = rotated.x - current.x,
+      dy = rotated.y - current.y;
+
+    node.rotation(rotation);
+    node.x(node.x() + dx);
+    node.y(node.y() + dy);
+}

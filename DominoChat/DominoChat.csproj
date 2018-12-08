@@ -350,6 +350,7 @@
     <Content Include="scripts\konva\src\Stage.js" />
     <Content Include="scripts\konva\src\Tween.js" />
     <Content Include="scripts\konva\src\Util.js" />
+    <Content Include="scripts\tilesvalue.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
