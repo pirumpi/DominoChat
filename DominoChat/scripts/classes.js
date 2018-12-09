@@ -1,6 +1,7 @@
 
     var width = window.innerWidth;
     var height = window.innerHeight;
+    var ActualTileContainer;
     const tilesWidth=50;
     const tilesHeigth=100;
     const TilesBotMarging=20;
@@ -38,6 +39,7 @@ class TileContainer{
             y : 1
         },
         this.startScale= 1
+
         
 
     }      
@@ -78,16 +80,15 @@ class Tile {
             y : 1
         },
         this.startScale= 1,
-        this.shadowOpacity= 0.6
+        this.shadowOpacity= 0.6,
+        this.isDouble=function(){
+            return this.values.head==this.values.tail;
+        }
         
 
     }
 
-    get isDouble( ){
-      return this.valueLeft==this.valueRigt;
-       
-    }
-
+    
     get canUse(){
     return (this.valueLeft==boardValueLeft || this.valueLeft==boardValueRight) 
     || (this.valueRigt==boardValueLeft || this.valueLeft==boardValueRight) ;
@@ -120,7 +121,7 @@ class Board {
 
 function addTile(layer,stage, orientation,x,y,draggable,image,valor) {
     var box = new Konva.Rect(new Tile(x, y, stage, draggable));
-    box.values = valor;
+    box.attrs.values = valor;
     if (orientation || orientation>0) 
         rotateAroundCenter(box,orientation);
 
@@ -151,6 +152,9 @@ function addTileContainer(layer,stage, orientation,x,y) {
     layer.add(box);
     return box;
 }
+function CreateNextcontainer(orientation){
+    ActualTileContainer= addTileContainer(layer,stage,orientation);
+}
 
 function AddTileGroupBot(layer,stage,tileList){
     
@@ -166,8 +170,8 @@ function AddTileGroupBot(layer,stage,tileList){
     iniciaEn=iniciaEn + tilesWidth + TilesRightMarging;
     else
         iniciaEn = primera;
-        
-    var valores = tilesValues.find(valores=>valores.id == tilesArray[index]);
+     
+    let valores = tilesValues.find(valores=>valores.id == tilesArray[index]);
     addTile(layer,stage,0,iniciaEn,null,true,'/Content/tiles/'+tilesArray[index]+'.png',valores);
       
   }
