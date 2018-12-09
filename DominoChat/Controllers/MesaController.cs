@@ -11,7 +11,8 @@ namespace DominoChat.Controllers
         // GET: Mesa
         public ActionResult Index()
         {
-            return View();
+            var HtmlPath = Server.MapPath("~/Views/Mesa/index.html");
+            return new FilePathResult(HtmlPath,"text/html");
         }
 
         // GET: Mesa/Details/5

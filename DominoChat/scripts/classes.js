@@ -110,10 +110,17 @@ class Tile {
 
 class Board {
     constructor(){
-     this.boardNumber=0,
+        this.boardValues={
+            head:null,
+            tail:null
+        },
+        this.setValues=function(head,tail){
+            this.boardValues.head=head;
+            this.boardValues.tail=tail;
+        }
      this.boardState =0,
-     this.aValue=null,
-     this.bValue=null    
+     this.userCanPlay=true, 
+     this.playedTiles=[]
     }
 }
 

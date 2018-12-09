@@ -1,9 +1,4 @@
-﻿
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,9 +20,9 @@
     </div>
 </body>
 
-<script src="~/scripts/konva/konva.js"></script>
-<script src="~/scripts/tilesvalue.js"></script>
-<script src="~/scripts/classes.js"></script>
+<script src="../scripts/konva/konva.js"></script>
+<script src="../scripts/tilesvalue.js"></script>
+<script src="../scripts/classes.js"></script>
 
 <script>
 
@@ -44,7 +39,7 @@ var stage = new Konva.Stage({
 
 var layer = new Konva.Layer();
 var dragLayer = new Konva.Layer();
-
+var board = new Board();
 
     AddTileGroupBot(layer,stage);
     AddTileGroupTop(layer,stage);
@@ -63,10 +58,10 @@ stage.on('mousedown', function(evt) {
 if(!shape.attrs.draggable)
     return;
 
-if (shape.attrs.isDouble())
-    CreateNextcontainer(90);
-else
-    CreateNextcontainer();
+if (board.userCanPlay)
+    shape.attrs.isDouble() ? CreateNextcontainer(90) : CreateNextcontainer();
+
+    
             
     shape.moveTo(dragLayer);
     stage.draw();
@@ -94,6 +89,7 @@ stage.on('dragstart', function(evt) {
     if(!shape.attrs.draggable)
     return;
     
+
 
     if (tween) {
         tween.pause();
@@ -136,6 +132,10 @@ stage.on('dragend', function(evt) {
     });
 
     tween.play();
+    board.playedTiles.push(shape);
+    board.setValues(shape.attrs.values.head, shape.attrs.values.head)
+   // board.userCanPlay = false;
+
    
 
 
