@@ -51,6 +51,28 @@ var board = new Board();
 stage.add(layer);
 stage.add(dragLayer);
 
+
+dragLayer.on('dragmove', function (e) {
+            var target = e.target;
+            var targetRect = e.target.getClientRect();
+            dragLayer.children.each(function (group) {
+                // do not check intersection with itself
+                if (group === target || !group.attrs.tipo) {
+                    return;
+                }
+                if (haveIntersection(group.getClientRect(), targetRect)) {
+                    group.stroke('yellow');
+                    ActualTileContainer=group;
+                } else {
+                    group.stroke('green');
+                    //ActualTileContainer=null;
+                }
+                // do not need to call layer.draw() here
+                // because it will be called by dragmove action
+            });
+        })
+
+
 // bind stage handlers
 stage.on('mousedown', function(evt) {
     var shape = evt.target;
@@ -58,9 +80,7 @@ stage.on('mousedown', function(evt) {
 if(!shape.attrs.draggable)
     return;
 
-if (board.userCanPlay)
-    shape.attrs.isDouble() ? CreateNextcontainer(90) : CreateNextcontainer();
-
+   
     
             
     shape.moveTo(dragLayer);
@@ -71,12 +91,26 @@ if (board.userCanPlay)
 
 stage.on('mouseup', function(evt) {
 
+
+
+
     var shape = evt.target;
+    
+    
+        var errors=dragLayer.children.filter(x=>x.attrs.tipo);
+        errors.forEach(x=>{
+        x.destroy();
+    });
+    
+
+
+
     if(!shape.attrs.draggable)
         return;
 
     
-    shape.moveTo(layer);
+    
+    //shape.moveTo(layer);
 
     stage.draw();
 
@@ -89,7 +123,14 @@ stage.on('dragstart', function(evt) {
     if(!shape.attrs.draggable)
     return;
     
-
+    
+    if(shape.attrs.draggable){
+    if (board.userCanPlay && board.playedTiles.length==0)
+    shape.attrs.isDouble() ? CreateNextcontainer(90) : CreateNextcontainer();
+    else
+    CreateNextContainerByTiles(board);
+    }
+    
 
     if (tween) {
         tween.pause();
@@ -109,13 +150,14 @@ stage.on('dragstart', function(evt) {
 stage.on('dragend', function(evt) {
     var shape = evt.target;
 
-    if (ActualTileContainer) {
+    if (ActualTileContainer && shape.attrs.draggable) {
         shape.position(ActualTileContainer.position());
         shape.attrs.initialPosition=shape.position();
         shape.rotation(ActualTileContainer.rotation());
         shape.attrs.draggable = false;
-        ActualTileContainer.destroy();
-        ActualTileContainer = null;
+        board.playedTiles.push(shape);
+        board.setValues(shape.attrs.values.head, shape.attrs.values.tail);
+       // ActualTileContainer.destroy();
     } else {
         shape.position(shape.attrs.initialPosition);
     }
@@ -132,9 +174,7 @@ stage.on('dragend', function(evt) {
     });
 
     tween.play();
-    board.playedTiles.push(shape);
-    board.setValues(shape.attrs.values.head, shape.attrs.values.head)
-   // board.userCanPlay = false;
+   
 
    
 

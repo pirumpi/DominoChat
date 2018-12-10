@@ -19,7 +19,7 @@
 class TileContainer{
     constructor(valuex, valuey,stage)
     {
-
+        this.tipo="container",
         this.width= tilesWidth,
         this.height= tilesHeigth,
         this.x= valuex  ? valuex:(stage.getWidth() -tilesWidth)/2,
@@ -28,8 +28,10 @@ class TileContainer{
         this.strokeWidth = 1,
         this.orientation = 0,
         this.draggable=false,
-        this.valueLeft=0,
-        this.valueRigt=0,
+        this.isHead=false,
+        this.isTail=false,
+        this.value=null,
+        this.tileid=null,
         this.initialPosition={
             x:this.x,
             y:this.y
@@ -64,7 +66,9 @@ class Tile {
             {
                 head: null,
                 tail:null
-            }
+            },
+        this.usedHead=false,
+        this.usedTail=false,
         this.shadowColor='Black',
         this.shadowBlur= 10,
         this.initialPosition={
@@ -120,7 +124,8 @@ class Board {
         }
      this.boardState =0,
      this.userCanPlay=true, 
-     this.playedTiles=[]
+     this.playedTiles=[],
+     this.containers=[]
     }
 }
 
@@ -159,8 +164,10 @@ function addTileContainer(layer,stage, orientation,x,y) {
     layer.add(box);
     return box;
 }
-function CreateNextcontainer(orientation){
-    ActualTileContainer= addTileContainer(layer,stage,orientation);
+function CreateNextcontainer(orientation,x,y){
+    addTileContainer(dragLayer,stage,orientation,x,y);
+   
+    return ActualTileContainer;
 }
 
 function AddTileGroupBot(layer,stage,tileList){
@@ -280,4 +287,41 @@ function rotateAroundCenter(node, rotation) {
     node.rotation(rotation);
     node.x(node.x() + dx);
     node.y(node.y() + dy);
+}
+
+function CreateNextContainerByTiles(board){
+    var newArray=board.playedTiles;
+    
+    if (board.playedTiles.length>1)
+      newArray=newArray.slice(-2)
+      newArray.map(item=>{
+          if(!item.attrs.usedHead){
+            var y= item.attrs.y - tilesHeigth;
+            var x= item.attrs.x;
+            var newCont=CreateNextcontainer(0,x,y);
+            newCont.attrs.isHead=true;
+            newCont.attrs.value=item.attrs.values.head;
+          }
+          if(!item.attrs.usedTail){
+            var y= item.attrs.y + tilesHeigth;
+            var x= item.attrs.x;
+            var newCont=CreateNextcontainer(0,x,y);
+            newCont.attrs.isTail=true;
+            newCont.attrs.value=item.attrs.values.tail;
+          }
+         
+      })
+      
+
+
+}
+
+
+function haveIntersection(r1, r2) {
+    return !(
+        r2.x > r1.x + r1.width ||
+        r2.x + r2.width < r1.x ||
+        r2.y > r1.y + r1.height ||
+        r2.y + r2.height < r1.y
+    );
 }
