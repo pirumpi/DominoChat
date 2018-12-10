@@ -17,7 +17,7 @@
     
 
 class TileContainer{
-    constructor(valuex, valuey,stage)
+    constructor(valuex, valuey,stage,tileid)
     {
         this.tipo="container",
         this.width= tilesWidth,
@@ -31,7 +31,7 @@ class TileContainer{
         this.isHead=false,
         this.isTail=false,
         this.value=null,
-        this.tileid=null,
+        this.tileidx=tileid,
         this.initialPosition={
             x:this.x,
             y:this.y
@@ -156,18 +156,18 @@ function addTile(layer,stage, orientation,x,y,draggable,image,valor) {
     
  
 }
-function addTileContainer(layer,stage, orientation,x,y) {
-    var box = new Konva.Rect(new TileContainer(x,y,stage));
+function addTileContainer(layer,stage, orientation,x,y,tileid) {
+    var box = new Konva.Rect(new TileContainer(x,y,stage,tileid));
     if (orientation)
     rotateAroundCenter(box,orientation);
     //box.rotate(orientation);
     layer.add(box);
     return box;
 }
-function CreateNextcontainer(orientation,x,y){
-    addTileContainer(dragLayer,stage,orientation,x,y);
+function CreateNextcontainer(orientation,x,y,tileid){
    
-    return ActualTileContainer;
+   
+    return  addTileContainer(dragLayer,stage,orientation,x,y,tileid);
 }
 
 function AddTileGroupBot(layer,stage,tileList){
@@ -294,18 +294,18 @@ function CreateNextContainerByTiles(board){
     
     if (board.playedTiles.length>1)
       newArray=newArray.slice(-2)
-      newArray.map(item=>{
+      newArray.forEach(item=>{
           if(!item.attrs.usedHead){
             var y= item.attrs.y - tilesHeigth;
             var x= item.attrs.x;
-            var newCont=CreateNextcontainer(0,x,y);
+            var newCont=CreateNextcontainer(0,x,y,item.attrs.values.id);
             newCont.attrs.isHead=true;
             newCont.attrs.value=item.attrs.values.head;
           }
           if(!item.attrs.usedTail){
             var y= item.attrs.y + tilesHeigth;
             var x= item.attrs.x;
-            var newCont=CreateNextcontainer(0,x,y);
+            var newCont=CreateNextcontainer(0,x,y,item.attrs.values.id);
             newCont.attrs.isTail=true;
             newCont.attrs.value=item.attrs.values.tail;
           }

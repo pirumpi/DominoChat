@@ -157,7 +157,15 @@ stage.on('dragend', function(evt) {
         shape.attrs.draggable = false;
         board.playedTiles.push(shape);  
         board.setValues(shape.attrs.values.head, shape.attrs.values.tail);
-       
+        var fichapadre=board.playedTiles.filter(x=>x.attrs.values.id==ActualTileContainer.attrs.tileidx);
+        if(fichapadre.length>0)
+        if(ActualTileContainer.attrs.isHead){
+            fichapadre[0].attrs.usedHead=true;
+            shape.attrs.usedTail=true;
+        } else{
+            fichapadre[0].attrs.usedTail=true;
+            shape.attrs.usedHead=true;
+        }
        // ActualTileContainer.destroy();
     } else {
         shape.position(shape.attrs.initialPosition);
