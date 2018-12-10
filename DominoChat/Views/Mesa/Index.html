@@ -155,8 +155,9 @@ stage.on('dragend', function(evt) {
         shape.attrs.initialPosition=shape.position();
         shape.rotation(ActualTileContainer.rotation());
         shape.attrs.draggable = false;
-        board.playedTiles.push(shape);
+        board.playedTiles.push(shape);  
         board.setValues(shape.attrs.values.head, shape.attrs.values.tail);
+       
        // ActualTileContainer.destroy();
     } else {
         shape.position(shape.attrs.initialPosition);
