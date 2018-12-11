@@ -295,20 +295,42 @@ function CreateNextContainerByTiles(board){
     if (board.playedTiles.length>1)
       newArray=newArray.slice(-2)
       newArray.forEach(item=>{
-          if(!item.attrs.usedHead){
-            var y= item.attrs.y - tilesHeigth;
-            var x= item.attrs.x;
-            var newCont=CreateNextcontainer(0,x,y,item.attrs.values.id);
-            newCont.attrs.isHead=true;
-            newCont.attrs.value=item.attrs.values.head;
-          }
-          if(!item.attrs.usedTail){
-            var y= item.attrs.y + tilesHeigth;
-            var x= item.attrs.x;
-            var newCont=CreateNextcontainer(0,x,y,item.attrs.values.id);
-            newCont.attrs.isTail=true;
-            newCont.attrs.value=item.attrs.values.tail;
-          }
+
+        if (item.attrs.rotation==0){
+
+            if(!item.attrs.usedHead){
+                var y= item.attrs.y - tilesHeigth;
+                var x= item.attrs.x;
+                var newCont=CreateNextcontainer(0,x,y,item.attrs.values.id);
+                newCont.attrs.isHead=true;
+                newCont.attrs.value=item.attrs.values.head;
+              }
+              if(!item.attrs.usedTail){
+                var y= item.attrs.y + tilesHeigth;
+                var x= item.attrs.x;
+                var newCont=CreateNextcontainer(0,x,y,item.attrs.values.id);
+                newCont.attrs.isTail=true;
+                newCont.attrs.value=item.attrs.values.tail;
+              }
+
+        }else{
+            if(!item.attrs.usedHead){
+                var y= item.attrs.y - tilesWidth*2;
+                var x= item.attrs.x - tilesHeigth/1.4;
+                var newCont=CreateNextcontainer(0,x,y,item.attrs.values.id);
+                newCont.attrs.isHead=true;
+                newCont.attrs.value=item.attrs.values.head;
+              }
+              if(!item.attrs.usedTail){
+                var y= item.attrs.y + tilesWidth;
+                var x= item.attrs.x - tilesHeigth/1.4;
+                var newCont=CreateNextcontainer(0,x,y,item.attrs.values.id);
+                newCont.attrs.isTail=true;
+                newCont.attrs.value=item.attrs.values.tail;
+              }
+
+        }
+          
          
       })
       
