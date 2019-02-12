@@ -61,15 +61,18 @@ dragLayer.on('dragmove', function (e) {
                     return;
                 }
                 if (haveIntersection(group.getClientRect(), targetRect)) {
-                   if (group.attrs.value==target.attrs.values.head || group.attrs.value==target.attrs.values.tail || group.attrs.value==null )
+                   if (group.attrs.value==target.attrs.values.head || group.attrs.value==target.attrs.values.tail || group.attrs.value==null ){
+
                     group.stroke('yellow');
-                    else
+                   
+
+                   }else{
                     group.stroke('red');
-                    
-                    ActualTileContainer=group;
+                   }  
+                   ActualTileContainer=group;
                 } else {
                     group.stroke('green');
-                    ActualTileContainer=null;
+                   // ActualTileContainer=null;
                 }
                 // do not need to call layer.draw() here
                 // because it will be called by dragmove action
