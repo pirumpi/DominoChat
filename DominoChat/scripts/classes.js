@@ -292,7 +292,10 @@ function rotateAroundCenter(node, rotation) {
 function setRotationByHeadTail(tile){
     var positionContainer = ActualTileContainer.attrs.isHead ? "isHead":"isTail";
     var valorContainer = ActualTileContainer.attrs.value;
-    if (valorContainer==tile.attrs.values.tail && positionContainer=="isTail"){
+    var valueToCheck=positionContainer=="isHead" ? tile.attrs.values.tail:tile.attrs.values.head;
+
+
+    if (valueToCheck!=valorContainer){
 
         rotateAroundCenter(tile,180);
 
