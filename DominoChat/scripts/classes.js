@@ -312,7 +312,7 @@ function CreateNextContainerByTiles(board){
     var newArray=board.playedTiles;
     
     if (board.playedTiles.length>1)
-      newArray=newArray.slice(-2)
+      newArray=newArray.filter(x=>x.attrs.usedHead == false || x.attrs.usedTail == false)
       newArray.forEach(item=>{
 
         if (item.attrs.rotation==0 || item.attrs.rotation==180 ){
