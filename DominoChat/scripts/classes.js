@@ -222,7 +222,7 @@ function AddTileGroupLeft(layer,stage){
     
 
     var iniciaEn=0;
-  for (let index = 0; index < 7; index++) {
+    for (let index = 0; index < 7; index++) {
     
     
     if(index>0)
@@ -244,7 +244,7 @@ function AddTileGroupRight(layer,stage){
     
 
     var iniciaEn=0;
-  for (let index = 0; index < 7; index++) {
+    for (let index = 0; index < 7; index++) {
     
     
     if(index>0)
@@ -297,7 +297,7 @@ function setRotationByHeadTail(tile){
         rotateAroundCenter(tile,180);
 
         var tail =tile.attrs.values.tail;
-        tile.attrs.values.tail=tile.attrs.values.tail.head
+        tile.attrs.values.tail=tile.attrs.values.head
         tile.attrs.values.head=tail;
         layer.draw();
     }
@@ -312,18 +312,18 @@ function CreateNextContainerByTiles(board){
       newArray=newArray.slice(-2)
       newArray.forEach(item=>{
 
-        if (item.attrs.rotation==0){
+        if (item.attrs.rotation==0 || item.attrs.rotation==180 ){
 
             if(!item.attrs.usedHead){
-                var y= item.attrs.y - tilesHeigth;
-                var x= item.attrs.x;
+                var y= item.attrs.initialPosition.y - tilesHeigth;
+                var x= item.attrs.initialPosition.x;
                 var newCont=CreateNextcontainer(0,x,y,item.attrs.values.id);
                 newCont.attrs.isHead=true;
                 newCont.attrs.value=item.attrs.values.head;
               }
               if(!item.attrs.usedTail){
-                var y= item.attrs.y + tilesHeigth;
-                var x= item.attrs.x;
+                var y= item.attrs.initialPosition.y + tilesHeigth;
+                var x= item.attrs.initialPosition.x;
                 var newCont=CreateNextcontainer(0,x,y,item.attrs.values.id);
                 newCont.attrs.isTail=true;
                 newCont.attrs.value=item.attrs.values.tail;
@@ -331,15 +331,15 @@ function CreateNextContainerByTiles(board){
 
         }else{
             if(!item.attrs.usedHead){
-                var y= item.attrs.y - tilesWidth*2;
-                var x= item.attrs.x - tilesHeigth/1.4;
+                var y= item.attrs.initialPosition.y - tilesWidth*2;
+                var x= item.attrs.initialPosition.x - tilesHeigth/1.4;
                 var newCont=CreateNextcontainer(0,x,y,item.attrs.values.id);
                 newCont.attrs.isHead=true;
                 newCont.attrs.value=item.attrs.values.head;
               }
               if(!item.attrs.usedTail){
-                var y= item.attrs.y + tilesWidth;
-                var x= item.attrs.x - tilesHeigth/1.4;
+                var y= item.attrs.initialPosition.y + tilesWidth;
+                var x= item.attrs.initialPosition.x - tilesHeigth/1.4;
                 var newCont=CreateNextcontainer(0,x,y,item.attrs.values.id);
                 newCont.attrs.isTail=true;
                 newCont.attrs.value=item.attrs.values.tail;
