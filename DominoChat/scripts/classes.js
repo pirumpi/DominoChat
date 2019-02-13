@@ -292,9 +292,18 @@ function rotateAroundCenter(node, rotation) {
 function setRotationByHeadTail(tile){
     var positionContainer = ActualTileContainer.attrs.isHead ? "isHead":"isTail";
     var valorContainer = ActualTileContainer.attrs.value;
-    if (valorContainer==tile.attrs.values.tail && positionContainer=="isTail")
-    rotateAroundCenter(tile,180);
-    layer.draw();
+    if (valorContainer==tile.attrs.values.tail && positionContainer=="isTail"){
+
+        rotateAroundCenter(tile,180);
+
+        var tail =tile.attrs.values.tail;
+        tile.attrs.values.tail=tile.attrs.values.tail.head
+        tile.attrs.values.head=tail;
+        layer.draw();
+    }
+    
+  
+    
 }
 function CreateNextContainerByTiles(board){
     var newArray=board.playedTiles;

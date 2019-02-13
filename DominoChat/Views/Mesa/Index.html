@@ -72,7 +72,8 @@ dragLayer.on('dragmove', function (e) {
                    ActualTileContainer=group;
                 } else {
                     group.stroke('green');
-                   // ActualTileContainer=null;
+                   if(board.playedTiles.length<=1)
+                    ActualTileContainer=null;
                 }
                 // do not need to call layer.draw() here
                 // because it will be called by dragmove action
@@ -159,7 +160,7 @@ stage.on('dragend', function(evt) {
 
     if (ActualTileContainer && shape.attrs.draggable && (ActualTileContainer.attrs.value==shape.attrs.values.head || ActualTileContainer.attrs.value==shape.attrs.values.tail || ActualTileContainer.attrs.value==null )) {
         shape.position(ActualTileContainer.position());
-        shape.attrs.initialPosition=shape.position();
+        shape.attrs.initialPosition=ActualTileContainer.position();
         shape.rotation(ActualTileContainer.rotation());
         if (board.playedTiles.length>0)
         setRotationByHeadTail(shape);
