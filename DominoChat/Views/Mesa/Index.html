@@ -161,6 +161,8 @@ stage.on('dragend', function(evt) {
         shape.position(ActualTileContainer.position());
         shape.attrs.initialPosition=shape.position();
         shape.rotation(ActualTileContainer.rotation());
+        if (board.playedTiles.length>0)
+        setRotationByHeadTail(shape);
         shape.attrs.draggable = false;
         board.playedTiles.push(shape);  
         board.setValues(shape.attrs.values.head, shape.attrs.values.tail);

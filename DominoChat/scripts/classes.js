@@ -139,7 +139,7 @@ function addTile(layer,stage, orientation,x,y,draggable,image,valor) {
     var box = new Konva.Rect(new Tile(x, y, stage, draggable));
     box.attrs.values = valor;
     if (orientation || orientation>0) 
-        box.rotation(orientation);
+        rotateAroundCenter(box,orientation);
 
     box.fillPriority('pattern');
     var imageObj = new Image();
@@ -200,13 +200,9 @@ function AddTileGroupBot(layer,stage,tileList){
 function AddTileGroupTop(layer,stage){
     
     const primera=iniciaFichaEnManoEn;
-   
-    
 
     var iniciaEn=0;
-  for (let index = 0; index < 7; index++) {
-    
-    
+    for (let index = 0; index < 7; index++) {
     if(index>0)
     iniciaEn=iniciaEn + tilesWidth + TilesRightMarging;
     else
@@ -293,6 +289,13 @@ function rotateAroundCenter(node, rotation) {
     node.y(node.y() + dy);
 }
 
+function setRotationByHeadTail(tile){
+    var positionContainer = ActualTileContainer.attrs.isHead ? "isHead":"isTail";
+    var valorContainer = ActualTileContainer.attrs.value;
+    if (valorContainer==tile.attrs.values.tail && positionContainer=="isTail")
+    rotateAroundCenter(tile,180);
+    layer.draw();
+}
 function CreateNextContainerByTiles(board){
     var newArray=board.playedTiles;
     
