@@ -20,6 +20,8 @@ class TileContainer{
     constructor(valuex, valuey,stage,tileid)
     {
         this.tipo="container",
+        this.offSetX=tilesWidth/2,
+        this.offSetY=tilesHeigth/2,
         this.width= tilesWidth,
         this.height= tilesHeigth,
         this.x= valuex  ? valuex:(stage.getWidth() -tilesWidth)/2,
@@ -56,6 +58,8 @@ class Tile {
         
         this.x= valuex  ? valuex:stage.getWidth() -(stage.getWidth()-450),
         this.y= valuey  ? valuey:stage.getHeight() -(tilesHeigth+TilesBotMarging) ,
+        this.offSetX=tilesWidth/2,
+        this.offSetY=tilesHeigth/2,
         this.width= tilesWidth,
         this.height= tilesHeigth,
         this.fill="white",
@@ -135,7 +139,7 @@ function addTile(layer,stage, orientation,x,y,draggable,image,valor) {
     var box = new Konva.Rect(new Tile(x, y, stage, draggable));
     box.attrs.values = valor;
     if (orientation || orientation>0) 
-        rotateAroundCenter(box,orientation);
+        box.rotation(orientation);
 
     box.fillPriority('pattern');
     var imageObj = new Image();
